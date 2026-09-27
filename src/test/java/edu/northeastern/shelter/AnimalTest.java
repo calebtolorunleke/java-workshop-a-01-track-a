@@ -108,11 +108,46 @@ class AnimalTest {
   @Test
   void theRefusalSaysWhichArgumentWasWrong() {
     // The rubric grades messages that name the problem. "invalid" tells a reader nothing.
-    IntakeException blankName =
-        assertThrows(
-            IntakeException.class, () -> new Animal("  ", Species.DOG, AgeMonths.of(1), INTAKE));
+    IntakeException blankName = assertThrows(
+        IntakeException.class, () -> new Animal("  ", Species.DOG, AgeMonths.of(1), INTAKE));
     assertTrue(
         blankName.getMessage().toLowerCase().contains("name"),
         "the message should name the offending argument");
   }
+
+
+  @Test
+  void refusalForNullSpeciesNamesSpeciesInException() {
+    IntakeException ex = assertThrows(
+        IntakeException.class, () -> new Animal("Rex", null, AgeMonths.of(1), INTAKE));
+    assertTrue(ex.getMessage().toLowerCase().contains("species"),
+        "the exception message should explicitly mention species");
+  }
+
+  @Test
+  void refusalForNullAgeNamesAgeInException() {
+    IntakeException ex = assertThrows(
+        IntakeException.class, () -> new Animal("Rex", Species.DOG, null, INTAKE));
+    assertTrue(ex.getMessage().toLowerCase().contains("age"),
+        "the exception message should explicitly mention age");
+  }
+
+  @Test
+  void refusalForNullIntakeDateNamesIntakeDateInException() {
+    IntakeException ex = assertThrows(
+        IntakeException.class, () -> new Animal("Rex", Species.DOG, AgeMonths.of(1), null));
+    assertTrue(ex.getMessage().toLowerCase().contains("intakedate"),
+        "the exception message should explicitly mention intakeDate");
+  }
+
+  @Test
+  void birdSpeciesFormatsCorrectlyInToString() {
+    Animal bird = new Animal("Polly", Species.BIRD, AgeMonths.of(12), INTAKE);
+    assertEquals("Polly (Bird, 1 year, intake 2026-09-21)", bird.toString());
+  }
 }
+
+
+
+
+
