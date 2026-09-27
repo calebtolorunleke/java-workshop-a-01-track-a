@@ -91,10 +91,32 @@ class AgeMonthsTest {
 
   @Test
   void theRefusalNamesTheOffendingValue() {
-    IntakeException tooOld =
-        assertThrows(IntakeException.class, () -> AgeMonths.of(AgeMonths.MAX_MONTHS + 1));
+    IntakeException tooOld = assertThrows(IntakeException.class, () -> AgeMonths.of(AgeMonths.MAX_MONTHS + 1));
     assertTrue(
         tooOld.getMessage().contains(String.valueOf(AgeMonths.MAX_MONTHS + 1)),
         "the message should name the value that was rejected");
+  }
+  @Test
+  void boundaryMaxMinusOneBehavesCorrectly() {
+    AgeMonths age = AgeMonths.of(AgeMonths.MAX_MONTHS - 1); // 479 months = 39 years, 11 months
+    assertEquals(39, age.years());
+    assertEquals(11, age.remainderMonths());
+    assertEquals("39 years, 11 months", age.toString());
+  }
+
+  @Test
+  void exactMaxMonthsFormatsAsWholeYearsWithoutRemainder() {
+    AgeMonths age = AgeMonths.of(AgeMonths.MAX_MONTHS); // 480 months = 40 years
+    assertEquals(40, age.years());
+    assertEquals(0, age.remainderMonths());
+    assertEquals("40 years", age.toString());
+  }
+
+  @Test
+  void negativeMonthsExceptionMessageContainsNegativeValue() {
+    IntakeException ex = assertThrows(IntakeException.class, () -> AgeMonths.of(-5));
+    assertTrue(
+        ex.getMessage().contains("-5"),
+        "the exception message should explicitly contain the invalid negative value");
   }
 }
