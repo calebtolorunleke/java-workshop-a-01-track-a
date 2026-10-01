@@ -81,7 +81,6 @@ public Animal(String name, Species species, AgeMonths age, LocalDate intakeDate)
    * @return the name, never {@code null} and never blank
    */
   public String name() {
-    // throw new UnsupportedOperationException("TODO: implement name()");
     return this.name;
   }
 
@@ -91,7 +90,6 @@ public Animal(String name, Species species, AgeMonths age, LocalDate intakeDate)
    * @return the species, never {@code null}
    */
   public Species species() {
-    // throw new UnsupportedOperationException("TODO: implement species()");
     return this.species;
   }
 
@@ -101,7 +99,6 @@ public Animal(String name, Species species, AgeMonths age, LocalDate intakeDate)
    * @return the age, never {@code null}
    */
   public AgeMonths age() {
-    // throw new UnsupportedOperationException("TODO: implement age()");
     return this.age;
   }
 
@@ -115,7 +112,6 @@ public Animal(String name, Species species, AgeMonths age, LocalDate intakeDate)
    * @return the intake date, never {@code null}
    */
   public LocalDate intakeDate() {
-    // throw new UnsupportedOperationException("TODO: implement intakeDate()");
     return this.intakeDate;
   }
 
@@ -136,7 +132,6 @@ public Animal(String name, Species species, AgeMonths age, LocalDate intakeDate)
    */
   @Override
   public String toString() {
-    // throw new UnsupportedOperationException("TODO: implement toString()");
     return String.format("%s (%s, %s, intake %s)",
         this.name,
         this.species.label(),
